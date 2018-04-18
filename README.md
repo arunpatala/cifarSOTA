@@ -10,4 +10,6 @@ Reviewing recent advances in classification on CIFAR 10 and 100 datasets
 
 ![](shake-shake.png)
 
+![](shake_shake_cifar100.png)
+
 
