@@ -2,6 +2,12 @@
 
 Reviewing recent advances in classification on CIFAR 10 and 100 datasets
 
+## Born again networks
+
+[paper](http://metalearning.ml/papers/metalearn17_furlanello.pdf) | [lua official](https://github.com/imenurok/ShakeDrop) | 
+
+![](born_again.png)
+
 
 ## Shake Drop
 
