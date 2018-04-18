@@ -20,16 +20,23 @@ Reviewing recent advances in classification on CIFAR 10 and 100 datasets
 
 ![](shake_shake_cifar100.png)
 
+
+## mixup 
+
+[paper](https://arxiv.org/abs/1710.09412) | [pytorch official](https://github.com/hongyi-zhang/mixup) | 
+
+![](mixup_cifar.png)
+
+
 ## Cutout
 
-[paper](https://arxiv.org/abs/1708.04552)|[pytorch official](https://github.com/uoguelph-mlrg/Cutout)|
+[paper](https://arxiv.org/abs/1708.04552) | [pytorch official](https://github.com/uoguelph-mlrg/Cutout) |
 
 ![](cutout.png)
 
 ## Random erasing
 
-[paper](https://arxiv.org/abs/1708.04896)|[pytorch official](https://github.com/zhunzhong07/Random-Erasing)|
+[paper](https://arxiv.org/abs/1708.04896) | [pytorch official](https://github.com/zhunzhong07/Random-Erasing) |
 
 
 ![](random_erasing.png)
-
