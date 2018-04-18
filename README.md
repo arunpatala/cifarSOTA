@@ -57,7 +57,7 @@ Reviewing recent advances in classification on CIFAR 10 and 100 datasets
 
 # SGDR
 
-[paper](https://arxiv.org/abs/1608.03983) | 
+[paper](https://arxiv.org/abs/1608.03983) | [official](https://github.com/loshchil/SGDR)
 
 ![](sgdr.png)
 ![](sgdr_ensembles.png)
