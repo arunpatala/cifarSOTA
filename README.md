@@ -22,5 +22,14 @@ Reviewing recent advances in classification on CIFAR 10 and 100 datasets
 
 ## Cutout
 
+[paper](https://arxiv.org/abs/1708.04552)|[pytorch official](https://github.com/uoguelph-mlrg/Cutout)|
 
 ![](cutout.png)
+
+## Random erasing
+
+[paper](https://arxiv.org/abs/1708.04896)|[pytorch official](https://github.com/zhunzhong07/Random-Erasing)|
+
+
+![](random_erasing.png)
+
