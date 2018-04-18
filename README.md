@@ -62,3 +62,11 @@ Reviewing recent advances in classification on CIFAR 10 and 100 datasets
 ![](sgdr.png)
 ![](sgdr_ensembles.png)
 
+# Stochastic depth Resnets
+
+[paper](https://arxiv.org/abs/1603.09382) | [official](https://github.com/loshchil/SGDR)
+
+![](stochastic.png)
+
+
+
