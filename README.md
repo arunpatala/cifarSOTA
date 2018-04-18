@@ -13,3 +13,9 @@ Reviewing recent advances in classification on CIFAR 10 and 100 datasets
 ![](shake_shake_cifar100.png)
 
 
+## Shake Drop
+
+[paper](https://arxiv.org/abs/1802.02375) | [lua official](https://github.com/imenurok/ShakeDrop) | 
+
+
+![](shakedrop.png)
