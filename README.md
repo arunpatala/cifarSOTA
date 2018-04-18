@@ -61,26 +61,11 @@ Reviewing recent advances in classification on CIFAR 10 and 100 datasets
 
 ![](sgdr.png)
 ![](sgdr_ensembles.png)
-
-# Stochastic depth Resnets
-
-[paper](https://arxiv.org/abs/1603.09382) | [official](https://github.com/loshchil/SGDR)
-
-![](stochastic.png)
-
 # Densenets
 
 [paper](https://arxiv.org/abs/1608.06993) | [official](https://github.com/liuzhuang13/DenseNet)
 
 ![](densenet.png)
-
-
-# ResNext
-
-[paper](https://arxiv.org/abs/1611.05431)
-
-![](resnext.png)
-
 
 
 # Pyramid drop
@@ -95,6 +80,13 @@ Reviewing recent advances in classification on CIFAR 10 and 100 datasets
 
 ![](pyramid.png)
 
+
+# ResNext
+
+[paper](https://arxiv.org/abs/1611.05431)
+
+![](resnext.png)
+
 # Wide Resnet
 
 [paper](https://arxiv.org/abs/1605.07146)
@@ -106,6 +98,13 @@ Reviewing recent advances in classification on CIFAR 10 and 100 datasets
 [paper](https://arxiv.org/abs/1603.05027) |
 
 ![](preact_resnet.png)
+
+
+# Stochastic depth Resnets
+
+[paper](https://arxiv.org/abs/1603.09382) | [official](https://github.com/loshchil/SGDR)
+
+![](stochastic.png)
 
 # Resnet
 
