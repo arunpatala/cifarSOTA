@@ -74,6 +74,12 @@ Reviewing recent advances in classification on CIFAR 10 and 100 datasets
 
 ![](densenet.png)
 
+# Pyramid Resnet
+
+[paper](https://arxiv.org/abs/1610.02915)
+
+![](pyramid.png)
+
 # Wide Resnet
 
 [paper](https://arxiv.org/abs/1605.07146)
