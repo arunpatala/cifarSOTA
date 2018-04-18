@@ -54,3 +54,11 @@ Reviewing recent advances in classification on CIFAR 10 and 100 datasets
 
 
 ![](random_erasing.png)
+
+# SGDR
+
+[paper](https://arxiv.org/abs/1608.03983) | 
+
+![](sgdr.png)
+![](sgdr_ensembles.png)
+
