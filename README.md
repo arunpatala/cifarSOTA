@@ -74,6 +74,12 @@ Reviewing recent advances in classification on CIFAR 10 and 100 datasets
 
 ![](densenet.png)
 
+# Pyramid drop
+
+[paper](https://arxiv.org/pdf/1707.07074.pdf)
+
+![](pyramid_drop.png)
+
 # Pyramid Resnet
 
 [paper](https://arxiv.org/abs/1610.02915)
@@ -88,7 +94,7 @@ Reviewing recent advances in classification on CIFAR 10 and 100 datasets
 
 # Preact Resnet
 
-[paper](https://arxiv.org/abs/1603.05027)
+[paper](https://arxiv.org/abs/1603.05027) |
 
 ![](preact_resnet.png)
 
