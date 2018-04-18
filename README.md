@@ -68,5 +68,10 @@ Reviewing recent advances in classification on CIFAR 10 and 100 datasets
 
 ![](stochastic.png)
 
+# Densenets
+
+[paper](https://arxiv.org/abs/1608.06993) | [official](https://github.com/liuzhuang13/DenseNet)
+
+![](densenet.png)
 
 
