@@ -22,6 +22,24 @@ from util.cutout import Cutout
 from model.resnet import ResNet18
 from model.wide_resnet import WideResNet
 
+
+import torch.utils.data as data
+
+class Subset(data.Dataset):
+
+    def __init__(self, dataset, n):
+        if n is None: n = len(dataset)
+        self.n = n
+        self.dataset = dataset
+        
+    def __getitem__(self, index):
+        return self.dataset.__getitem__(index)
+
+    def __len__(self):
+        return self.n
+
+
+
 model_options = ['resnet18', 'wideresnet']
 dataset_options = ['cifar10', 'cifar100', 'svhn']
 
@@ -48,6 +66,8 @@ parser.add_argument('--no-cuda', action='store_true', default=False,
                     help='enables CUDA training')
 parser.add_argument('--seed', type=int, default=0,
                     help='random seed (default: 1)')
+parser.add_argument('--subset', '-s', type=int, default=None,
+                    help='use subset of data')
 
 args = parser.parse_args()
 args.cuda = not args.no_cuda and torch.cuda.is_available()
@@ -59,7 +79,7 @@ if args.cuda:
 
 test_id = args.dataset + '_' + args.model
 
-print args
+print(args)
 
 # Image Preprocessing
 if args.dataset == 'svhn':
@@ -128,6 +148,7 @@ elif args.dataset == 'svhn':
                                  transform=test_transform,
                                  download=True)
 
+train_dataset = Subset(train_dataset, args.subset)
 # Data Loader (Input Pipeline)
 train_loader = torch.utils.data.DataLoader(dataset=train_dataset,
                                            batch_size=args.batch_size,

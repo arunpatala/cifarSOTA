@@ -33,8 +33,7 @@ class Cutout(object):
             y2 = np.clip(y + self.length / 2, 0, h)
             x1 = np.clip(x - self.length / 2, 0, w)
             x2 = np.clip(x + self.length / 2, 0, w)
-
-            mask[y1: y2, x1: x2] = 0.
+            mask[int(y1): int(y2), int(x1): int(x2)] = 0.
 
         mask = torch.from_numpy(mask)
         mask = mask.expand_as(img)
