@@ -19,12 +19,31 @@ from utils import progress_bar, mixup_data, mixup_criterion
 from torch.autograd import Variable
 
 
+
+import torch.utils.data as data
+
+class Subset(data.Dataset):
+
+    def __init__(self, dataset, n):
+        if n is None: n = len(dataset)
+        self.n = n
+        self.dataset = dataset
+        
+    def __getitem__(self, index):
+        return self.dataset.__getitem__(index)
+
+    def __len__(self):
+        return self.n
+
+
+
 parser = argparse.ArgumentParser(description='PyTorch CIFAR10 Training')
 parser.add_argument('--resume', '-r', action='store_true', help='resume from checkpoint')
 parser.add_argument('--sess', default='mixup_default', type=str, help='session id')
 parser.add_argument('--seed', default=0, type=int, help='rng seed')
 parser.add_argument('--alpha', default=1., type=float, help='interpolation strength (uniform=1., ERM=0.)')
 parser.add_argument('--decay', default=1e-4, type=float, help='weight decay (default=1e-4)')
+parser.add_argument('--subset', '-s', type=int, default=None, help='use subset of data')
 args = parser.parse_args()
 
 torch.manual_seed(args.seed)
@@ -55,6 +74,7 @@ transform_test = transforms.Compose([
 ])
 
 trainset = torchvision.datasets.CIFAR10(root='./data', train=True, download=True, transform=transform_train)
+trainset = Subset(trainset, args.subset)
 trainloader = torch.utils.data.DataLoader(trainset, batch_size=batch_size, shuffle=True, num_workers=2)
 
 testset = torchvision.datasets.CIFAR10(root='./data', train=False, download=True, transform=transform_test)
@@ -193,7 +213,7 @@ if not os.path.exists(logname):
 for epoch in range(start_epoch, 200):
     adjust_learning_rate(optimizer, epoch)
     train_loss, train_acc = train(epoch)
-    test_loss, test_acc = test(epoch)
+    if epoch%10==0: test_loss, test_acc = test(epoch)
     with open(logname, 'a') as logfile:
         logwriter = csv.writer(logfile, delimiter=',')
         logwriter.writerow([epoch, train_loss, train_acc, test_loss, test_acc])

@@ -245,7 +245,7 @@ for epoch in range(args.epochs):
             xentropy='%.3f' % (xentropy_loss_avg / (i + 1)),
             acc='%.3f' % accuracy)
 
-    test_acc = test(test_loader)
+    if epoch%10==0: test_acc = test(test_loader)
     tqdm.write('test_acc: %.3f' % (test_acc))
 
     scheduler.step(epoch)

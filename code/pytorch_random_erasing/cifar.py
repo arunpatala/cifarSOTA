@@ -19,6 +19,22 @@ import models.cifar as models
 from utils import Bar, Logger, AverageMeter, accuracy, mkdir_p, savefig
 
 
+import torch.utils.data as data
+
+class Subset(data.Dataset):
+
+    def __init__(self, dataset, n):
+        if n is None: n = len(dataset)
+        self.n = n
+        self.dataset = dataset
+        
+    def __getitem__(self, index):
+        return self.dataset.__getitem__(index)
+
+    def __len__(self):
+        return self.n
+
+
 model_names = sorted(name for name in models.__dict__
     if name.islower() and not name.startswith("__")
     and callable(models.__dict__[name]))
@@ -73,6 +89,8 @@ parser.add_argument('--p', default=0, type=float, help='Random Erasing probabili
 parser.add_argument('--sh', default=0.4, type=float, help='max erasing area')
 parser.add_argument('--r1', default=0.3, type=float, help='aspect of erasing area')
 
+parser.add_argument('--subset', '-s', type=int, default=None, help='use subset of data')
+args = parser.parse_args()
 args = parser.parse_args()
 state = {k: v for k, v in args._get_kwargs()}
 
@@ -124,6 +142,7 @@ def main():
 
 
     trainset = dataloader(root='./data', train=True, download=True, transform=transform_train)
+    trainset = Subset(trainset, args.subset)
     trainloader = data.DataLoader(trainset, batch_size=args.train_batch, shuffle=True, num_workers=args.workers)
 
     testset = dataloader(root='./data', train=False, download=False, transform=transform_test)
@@ -165,7 +184,7 @@ def main():
         optimizer.load_state_dict(checkpoint['optimizer'])
         logger = Logger(os.path.join(args.checkpoint, 'log.txt'), title=title, resume=True)
     else:
-        logger = Logger(os.path.join(args.checkpoint, 'log.txt'), title=title)
+        logger = Logger(os.path.join(args.checkpoint, 'log_p'+str(args.p)+'.txt'), title=title)
         logger.set_names(['Learning Rate', 'Train Loss', 'Valid Loss', 'Train Acc.', 'Valid Acc.'])
 
 
@@ -182,7 +201,8 @@ def main():
         print('\nEpoch: [%d | %d] LR: %f' % (epoch + 1, args.epochs, state['lr']))
 
         train_loss, train_acc = train(trainloader, model, criterion, optimizer, epoch, use_cuda)
-        test_loss, test_acc = test(testloader, model, criterion, epoch, use_cuda)
+        test_loss, test_acc = 0.0, 0.0
+        if epoch%10==9: test_loss, test_acc = test(testloader, model, criterion, epoch, use_cuda)
 
         # append logger file
         logger.append([state['lr'], train_loss, test_loss, train_acc, test_acc])
