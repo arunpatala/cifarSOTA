@@ -3,7 +3,7 @@
 Reviewing recent advances in classification on CIFAR 10 and 100 datasets
 
 # Table of Contents
-1. [Stochastic Weight Averaging](#StochasticWeightAveraging)
+1. [StochasticWeightAveraging](#StochasticWeightAveraging)
 2. [Example2](#example2)
 3. [Third Example](#third-example)
 
