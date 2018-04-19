@@ -10,6 +10,24 @@ import utils
 import tabulate
 
 
+
+import torch.utils.data as data
+
+class Subset(data.Dataset):
+
+    def __init__(self, dataset, n):
+        if n is None: n = len(dataset)
+        self.n = n
+        self.dataset = dataset
+        
+    def __getitem__(self, index):
+        return self.dataset.__getitem__(index)
+
+    def __len__(self):
+        return self.n
+
+
+
 parser = argparse.ArgumentParser(description='SGD/SWA training')
 parser.add_argument('--dir', type=str, default=None, required=True, help='training directory (default: None)')
 
@@ -39,6 +57,8 @@ parser.add_argument('--swa_c_epochs', type=int, default=1, metavar='N',
 
 parser.add_argument('--seed', type=int, default=1, metavar='S', help='random seed (default: 1)')
 
+parser.add_argument('--subset', '-s', type=int, default=None, help='use subset of data')
+
 args = parser.parse_args()
 
 print('Preparing directory %s' % args.dir)
@@ -58,6 +78,8 @@ print('Loading dataset %s from %s' % (args.dataset, args.data_path))
 ds = getattr(torchvision.datasets, args.dataset)
 path = os.path.join(args.data_path, args.dataset.lower())
 train_set = ds(path, train=True, download=True, transform=model_cfg.transform_train)
+num_classes = max(train_set.train_labels) + 1
+train_set = Subset(train_set, args.subset)
 test_set = ds(path, train=False, download=True, transform=model_cfg.transform_test)
 loaders = {
     'train': torch.utils.data.DataLoader(
@@ -75,7 +97,6 @@ loaders = {
         pin_memory=True
     )
 }
-num_classes = max(train_set.train_labels) + 1
 
 print('Preparing model')
 model = model_cfg.base(*model_cfg.args, num_classes=num_classes, **model_cfg.kwargs)

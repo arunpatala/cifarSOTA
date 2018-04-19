@@ -202,7 +202,7 @@ def main():
 
         train_loss, train_acc = train(trainloader, model, criterion, optimizer, epoch, use_cuda)
         test_loss, test_acc = 0.0, 0.0
-        if epoch%10==9: test_loss, test_acc = test(testloader, model, criterion, epoch, use_cuda)
+        if epoch%5==0: test_loss, test_acc = test(testloader, model, criterion, epoch, use_cuda)
 
         # append logger file
         logger.append([state['lr'], train_loss, test_loss, train_acc, test_acc])
