@@ -2,7 +2,6 @@
 
 Reviewing recent advances in classification on CIFAR 10 and 100 datasets
 
-
 ## Stochastic Weight Averaging
 
 [paper](https://arxiv.org/abs/1803.05407) | [pytorch](https://github.com/timgaripov/swa) | 
@@ -15,6 +14,14 @@ Reviewing recent advances in classification on CIFAR 10 and 100 datasets
 [paper](http://metalearning.ml/papers/metalearn17_furlanello.pdf) |  
 
 ![](born_again.png)
+
+
+## Erase ReLU
+
+[paper](https://arxiv.org/pdf/1709.07634.pdf) |
+
+![](erase_relu.png)
+
 
 
 ## Shake Drop
