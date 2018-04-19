@@ -4,7 +4,7 @@ Reviewing recent advances in classification on CIFAR 10 and 100 datasets
 
 # Table of Contents
 1. [Stochastic Weight Averaging](#stochastic-weight-averaging)
-2. [Born again networks](#Born-again-networks)
+2. [Born again networks](#born-again-networks)
 3. [Third Example](#third-example)
 
 
