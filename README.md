@@ -5,7 +5,22 @@ Reviewing recent advances in classification on CIFAR 10 and 100 datasets
 # Table of Contents
 1. [Stochastic Weight Averaging](#stochastic-weight-averaging)
 2. [Born again networks](#born-again-networks)
-3. [Third Example](#third-example)
+3. [Erase ReLU](#erase-relu)
+4. [Cyclic learning rates](#cyclic-learning-rates)
+5. [Shake Drop](#shake-drop)
+6. [Shake Shake](#shake-shake)
+7. [mixup](#mixup)
+8. [Cutout](#cutout)
+9. [Random erasing](#random-erasing)
+10. [SGDR](#sgdr)
+11. [Densenets](#densenets)
+12. [Pyramid drop](#pyramid-drop)
+13. [Pyramid Resnet](#pyramid-resnet)
+14. [ResNext](#resnext)
+15. [Wide Resnet](#wide-resnet)
+16. [Preact Resnet](#preact-resnet)
+17. [Stochastic depth Resnets](#stochastic-depth-resnets)
+18. [Resnet](#resnet)
 
 
 ## Stochastic Weight Averaging
@@ -79,6 +94,7 @@ Reviewing recent advances in classification on CIFAR 10 and 100 datasets
 
 ![](sgdr.png)
 ![](sgdr_ensembles.png)
+
 # Densenets
 
 [paper](https://arxiv.org/abs/1608.06993) | [official](https://github.com/liuzhuang13/DenseNet)
