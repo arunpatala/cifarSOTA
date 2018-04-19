@@ -22,6 +22,11 @@ Reviewing recent advances in classification on CIFAR 10 and 100 datasets
 
 ![](erase_relu.png)
 
+# Cyclic learning rates
+
+[paper](https://arxiv.org/abs/1506.01186)
+
+![](clr.png)
 
 
 ## Shake Drop
