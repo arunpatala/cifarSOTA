@@ -8,7 +8,7 @@ Reviewing recent advances in classification on CIFAR 10 and 100 datasets
 3. [Third Example](#third-example)
 
 
-## StochasticWeightAveraging
+## Stochastic Weight Averaging
 
 [paper](https://arxiv.org/abs/1803.05407) | [pytorch](https://github.com/timgaripov/swa) | 
 
