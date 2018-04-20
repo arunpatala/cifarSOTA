@@ -27,6 +27,8 @@ Reviewing recent advances in classification on CIFAR 10 and 100 datasets
 
 [paper](https://arxiv.org/pdf/1708.07120v2.pdf) | [caffe official](https://github.com/lnsmith54/super-convergence)
 
+![](images/super.png)
+
 ## Stochastic Weight Averaging
 
 [paper](https://arxiv.org/abs/1803.05407) | [pytorch](https://github.com/timgaripov/swa) | 
