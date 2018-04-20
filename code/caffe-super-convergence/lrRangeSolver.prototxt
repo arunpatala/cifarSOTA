@@ -1,0 +1,24 @@
+net: "examples/sc/architectures/arch.prototxt"
+#net: "examples/sc/architectures/Resnet56Cifar.prototxt"
+#net: "examples/sc/architectures/Resnet20Cifar.prototxt"
+#
+#net: "examples/sc/architectures/Resnet56Dropout.prototxt"
+#net: "examples/sc/architectures/Resnet56Cifar-mod.prototxt"
+#net: "examples/sc/architectures/Resnet56Cifar_changePooling.prototxt"
+#net: "examples/sc/architectures/bottleneckResnet56.prototxt"
+#net: "examples/sc/architectures/resnet20bn.prototxt"
+#net: "examples/sc/architectures/ResNeXt56.prototxt"
+test_iter: 200
+test_interval: 100
+display: 100
+lr_policy: "triangular" 
+base_lr: 0 # 0.00001
+max_lr: 3
+stepsize: 20000
+max_iter: 20000 
+snapshot: 100000
+snapshot_prefix: "examples/sc/snapshots/Fig2b"
+solver_mode: GPU
+weight_decay: 1e-4
+momentum: 0.9
+# type: "AdaGrad"  # "Nesterov" # "RMSProp" # "Adam" #  
