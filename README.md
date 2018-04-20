@@ -3,6 +3,7 @@
 Reviewing recent advances in classification on CIFAR 10 and 100 datasets
 
 # Table of Contents
+0. [Super Convergence](#super-convergence)
 1. [Stochastic Weight Averaging](#stochastic-weight-averaging)
 2. [Born again networks](#born-again-networks)
 3. [Erase ReLU](#erase-relu)
@@ -22,6 +23,9 @@ Reviewing recent advances in classification on CIFAR 10 and 100 datasets
 17. [Stochastic depth Resnets](#stochastic-depth-resnets)
 18. [Resnet](#resnet)
 
+## Super Convergence
+
+[paper](https://arxiv.org/pdf/1708.07120v2.pdf) | [caffe official](https://github.com/lnsmith54/super-convergence)
 
 ## Stochastic Weight Averaging
 
