@@ -26,6 +26,8 @@ except Exception:
 
 from dataloader import get_loader
 
+
+
 torch.backends.cudnn.benchmark = True
 
 logging.basicConfig(
@@ -64,6 +66,7 @@ def parse_args():
     # optim config
     parser.add_argument('--epochs', type=int, default=1800)
     parser.add_argument('--batch_size', type=int, default=128)
+    parser.add_argument('--subset', '-s', type=int, default=None)
     parser.add_argument('--base_lr', type=float, default=0.2)
     parser.add_argument('--weight_decay', type=float, default=1e-4)
     parser.add_argument('--momentum', type=float, default=0.9)
@@ -92,6 +95,7 @@ def parse_args():
     optim_config = OrderedDict([
         ('epochs', args.epochs),
         ('batch_size', args.batch_size),
+        ('subset', args.subset),
         ('base_lr', args.base_lr),
         ('weight_decay', args.weight_decay),
         ('momentum', args.momentum),
@@ -144,8 +148,9 @@ class AverageMeter(object):
 
 
 def _cosine_annealing(step, total_steps, lr_max, lr_min):
-    return lr_min + (lr_max - lr_min) * 0.5 * (
+    lr = lr_min + (lr_max - lr_min) * 0.5 * (
         1 + np.cos(step / total_steps * np.pi))
+    return lr
 
 
 def get_cosine_annealing_scheduler(optimizer, optim_config):
@@ -312,7 +317,7 @@ def main():
 
     # data loaders
     train_loader, test_loader = get_loader(optim_config['batch_size'],
-                                           run_config['num_workers'])
+                                           run_config['num_workers'], optim_config['subset'])
 
     # model
     model = load_model(config['model_config'])
@@ -338,7 +343,9 @@ def main():
     for epoch in range(1, optim_config['epochs'] + 1):
         train(epoch, model, optimizer, scheduler, criterion, train_loader,
               run_config, writer)
-        accuracy = test(epoch, model, criterion, test_loader, run_config,
+        accuracy = 0.0
+        if epoch%10==0:
+            accuracy = test(epoch, model, criterion, test_loader, run_config,
                         writer)
 
         state = OrderedDict([

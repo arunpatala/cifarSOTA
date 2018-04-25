@@ -10,7 +10,24 @@ import torchvision.models
 import torchvision.transforms
 
 
-def get_loader(batch_size, num_workers):
+
+import torch.utils.data as data
+
+class Subset(data.Dataset):
+
+    def __init__(self, dataset, n):
+        if n is None: n = len(dataset)
+        self.n = n
+        self.dataset = dataset
+        
+    def __getitem__(self, index):
+        return self.dataset.__getitem__(index)
+
+    def __len__(self):
+        return self.n
+
+
+def get_loader(batch_size, num_workers, subset):
     mean = np.array([0.4914, 0.4822, 0.4465])
     std = np.array([0.2470, 0.2435, 0.2616])
 
@@ -25,9 +42,10 @@ def get_loader(batch_size, num_workers):
         torchvision.transforms.Normalize(mean, std),
     ])
 
-    dataset_dir = '~/.torchvision/datasets/CIFAR10'
+    dataset_dir = '/home/arun/.torchvision/datasets/CIFAR10'
     train_dataset = torchvision.datasets.CIFAR10(
         dataset_dir, train=True, transform=train_transform, download=True)
+    train_dataset = Subset(train_dataset, subset)
     test_dataset = torchvision.datasets.CIFAR10(
         dataset_dir, train=False, transform=test_transform, download=True)
 
