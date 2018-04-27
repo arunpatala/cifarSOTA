@@ -1,6 +1,10 @@
 import os
 import torch
 
+import numpy as np
+from torch.autograd import Variable
+
+
 
 def adjust_learning_rate(optimizer, lr):
     for param_group in optimizer.param_groups:
@@ -36,7 +40,7 @@ def train_epoch(loader, model, criterion, optimizer):
         loss.backward()
         optimizer.step()
 
-        loss_sum += loss.data[0].item() * input.size(0)
+        loss_sum += loss.data[0] * input.size(0)
         pred = output.data.max(1, keepdim=True)[1]
         #print(pred)
         #print(target_var)
@@ -50,6 +54,66 @@ def train_epoch(loader, model, criterion, optimizer):
         'accuracy': correct / len(loader.dataset) * 100.0,
     }
 
+def mixup_data(x, y, alpha=1.0, use_cuda=True):
+
+    '''Compute the mixup data. Return mixed inputs, pairs of targets, and lambda'''
+    if alpha > 0.:
+        lam = np.random.beta(alpha, alpha)
+    else:
+        lam = 1.
+    batch_size = x.size()[0]
+    if use_cuda:
+        index = torch.randperm(batch_size).cuda()
+    else:
+        index = torch.randperm(batch_size)
+
+    mixed_x = lam * x + (1 - lam) * x[index,:]
+    y_a, y_b = y, y[index]
+    return mixed_x, y_a, y_b, lam
+
+def mixup_criterion(y_a, y_b, lam):
+    return lambda criterion, pred: lam * criterion(pred, y_a) + (1 - lam) * criterion(pred, y_b)
+
+
+# Training
+def train(loader, net, criterion, optimizer, alpha=1.0, use_cuda=True):
+    net.train()
+    train_loss = 0
+    correct = 0
+    total = 0
+    lams = []
+    for batch_idx, (inputs, targets) in enumerate(loader):
+        if use_cuda:
+            inputs, targets = inputs.cuda(), targets.cuda()
+        # generate mixed inputs, two one-hot label vectors and mixing coefficient
+        inputs, targets_a, targets_b, lam = mixup_data(inputs, targets, alpha, use_cuda)
+        lams.append(min(lam, 1-lam))
+        optimizer.zero_grad()
+        inputs, targets_a, targets_b = Variable(inputs), Variable(targets_a), Variable(targets_b)
+        outputs = net(inputs)
+
+        #lam = 1.0
+        loss_func = mixup_criterion(targets_a, targets_b, lam)
+        loss = loss_func(criterion, outputs)
+        loss.backward()
+        optimizer.step()
+
+        
+        train_loss += loss.data[0].item()
+        _, predicted = torch.max(outputs.data, 1)
+        total += targets.size(0)
+        correct += lam * predicted.eq(targets_a.data).cpu().sum().item() + (1 - lam) * predicted.eq(targets_b.data).cpu().sum().item()
+
+        #progress_bar(batch_idx, len(trainloader), 'Loss: %.3f | Acc: %.3f%% (%d/%d)'            % (train_loss/(batch_idx+1), 100.*correct/total, correct, total))
+    print("lams", np.array(lams).sum()/len(lams))
+    #print(train_loss/batch_idx, 100.*correct/total)
+
+    
+
+    return {
+        'loss': train_loss / len(loader.dataset),
+        'accuracy': correct / len(loader.dataset) * 100.0,
+    }
 
 def eval(loader, model, criterion):
     loss_sum = 0.0
@@ -66,7 +130,7 @@ def eval(loader, model, criterion):
         output = model(input_var)
         loss = criterion(output, target_var)
 
-        loss_sum += loss.data[0].item() * input.size(0)
+        loss_sum += loss.data[0] * input.size(0)
         pred = output.data.max(1, keepdim=True)[1]
         correct += pred.eq(target_var.data.view_as(pred)).sum().item()
 
