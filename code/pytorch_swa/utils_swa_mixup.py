@@ -76,7 +76,7 @@ def mixup_criterion(y_a, y_b, lam):
 
 
 # Training
-def train(loader, net, criterion, optimizer, alpha=1.0, use_cuda=True, ret=None):
+def train(loader, net, criterion, optimizer, alpha=1.0, use_cuda=True):
     net.train()
     train_loss = 0
     correct = 0
@@ -87,7 +87,6 @@ def train(loader, net, criterion, optimizer, alpha=1.0, use_cuda=True, ret=None)
             inputs, targets = inputs.cuda(), targets.cuda()
         # generate mixed inputs, two one-hot label vectors and mixing coefficient
         inputs, targets_a, targets_b, lam = mixup_data(inputs, targets, alpha, use_cuda)
-        if inputs is not None: inputs = ret(inputs)
         lams.append(min(lam, 1-lam))
         optimizer.zero_grad()
         inputs, targets_a, targets_b = Variable(inputs), Variable(targets_a), Variable(targets_b)
@@ -106,7 +105,7 @@ def train(loader, net, criterion, optimizer, alpha=1.0, use_cuda=True, ret=None)
         correct += lam * predicted.eq(targets_a.data).cpu().sum().item() + (1 - lam) * predicted.eq(targets_b.data).cpu().sum().item()
 
         #progress_bar(batch_idx, len(trainloader), 'Loss: %.3f | Acc: %.3f%% (%d/%d)'            % (train_loss/(batch_idx+1), 100.*correct/total, correct, total))
-    #print("lams", np.array(lams).sum()/len(lams))
+    print("lams", np.array(lams).sum()/len(lams))
     #print(train_loss/batch_idx, 100.*correct/total)
 
     
