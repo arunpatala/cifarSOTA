@@ -38,7 +38,9 @@ Reviewing recent advances in classification on CIFAR 10 and 100 datasets
 
 ## Born again networks
 
-[paper](http://metalearning.ml/papers/metalearn17_furlanello.pdf) |  
+[paper](https://arxiv.org/pdf/1805.04770.pdf) |  
+
+![](images/ban_cifar10.png)
 
 ![](images/born_again.png)
 
